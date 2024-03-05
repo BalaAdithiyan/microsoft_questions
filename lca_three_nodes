@@ -1,0 +1,65 @@
+
+
+/**********************************************************
+	Following is the Binary Tree Node class.
+
+	class BinaryTreeNode<T> {
+	    T data;
+	    BinaryTreeNode<T> left;
+	    BinaryTreeNode<T> right;
+
+	    public BinaryTreeNode(T data) {
+		this.data = data;
+	    }
+	}
+	
+***********************************************************/
+import java.util.*;
+public class Solution {
+	static int inorder(BinaryTreeNode<Integer> root,Vector<Integer> v,int key){
+		if(root==null){
+			return 0;
+		}
+		if(root.data==key){
+			v.add(root.data);
+			return -1;
+		}
+		v.add(root.data);
+		// System.out.println(root.data);
+		if(inorder(root.left,v,key)==-1){
+			return -1;
+		};
+		if(inorder(root.right,v,key)==-1){
+			return -1;
+		};
+		v.remove(v.size()-1);
+		return 0;
+	}
+    public static BinaryTreeNode<Integer> lcaOfThreeNodes(BinaryTreeNode<Integer> root, int node1, int node2,
+            int node3) {
+				// Scanner sc = new Scanner(System.in);
+				// int n = sc.nextInt();
+
+				Vector<Integer> v1 = new Vector<>();
+				Vector<Integer> v2 = new Vector<>();
+				Vector<Integer> v3 = new Vector<>();
+				inorder(root,v1,node1);
+				// System.out.println(v1);
+				inorder(root,v2,node2);
+				// System.out.println(v2);
+				inorder(root,v3,node3);
+				// System.out.println(v3);
+				int i = 0;
+				int ans = -1;
+				while(i<v1.size()&&i<v2.size() &&i<v3.size()){
+					if(v1.get(i)==v2.get(i)&& v1.get(i)==v3.get(i)){
+						ans = v1.get(i);
+					}
+					i++;
+				}
+				BinaryTreeNode<Integer> newnode = new BinaryTreeNode<>(ans);
+	
+				return newnode;
+        
+    }
+}
